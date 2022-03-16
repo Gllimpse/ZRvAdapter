@@ -9,11 +9,13 @@ import android.view.View
  * @description
  **/
 abstract class BaseBinder {
-    open val itemId : Int? = null
 
     open fun onBind(itemView: View){}
 
     abstract fun areContentsTheSame(binder: BaseBinder): Boolean
+
+    abstract fun areItemsTheSame(binder: BaseBinder): Boolean
+
 
     abstract fun layoutId(): Int
 }

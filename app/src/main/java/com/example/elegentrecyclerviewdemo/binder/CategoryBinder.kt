@@ -25,6 +25,9 @@ class CategoryContainerBinder(private val data: List<CategoryItemBinder>) : Base
         rv.layoutManager = LinearLayoutManager(itemView.context)
     }
 
+    override fun areItemsTheSame(binder: BaseBinder): Boolean {
+        return layoutId() == binder.layoutId()
+    }
     override fun areContentsTheSame(binder: BaseBinder): Boolean {
         if (data.size != (binder as CategoryContainerBinder).data.size ) return false
         repeat(data.size){
@@ -39,10 +42,14 @@ class CategoryContainerBinder(private val data: List<CategoryItemBinder>) : Base
 
 class CategoryItemBinder(val title: String) : BaseBinder(){
 
+
     override fun areContentsTheSame(binder: BaseBinder): Boolean {
         return (binder as CategoryItemBinder).title == title
     }
 
+    override fun areItemsTheSame(binder: BaseBinder): Boolean {
+        return (binder as CategoryItemBinder).title == title
+    }
     override fun layoutId() = R.layout.item_category_child
 
     override fun onBind(itemView: View) {

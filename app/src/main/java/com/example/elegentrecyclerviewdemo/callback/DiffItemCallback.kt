@@ -11,7 +11,7 @@ import com.example.elegentrecyclerviewdemo.binder.BaseBinder
  **/
 class DiffItemCallback<B: BaseBinder> : DiffUtil.ItemCallback<B>() {
     override fun areItemsTheSame(oldItem: B, newItem: B): Boolean {
-        return oldItem.itemId == newItem.itemId
+        return oldItem.areItemsTheSame(newItem)
     }
 
     override fun areContentsTheSame(oldItem: B, newItem: B): Boolean {

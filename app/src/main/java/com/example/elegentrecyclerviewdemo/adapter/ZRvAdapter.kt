@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elegentrecyclerviewdemo.binder.BaseBinder
 import com.example.elegentrecyclerviewdemo.callback.DiffItemCallback
+import java.util.*
 
 
 /**
@@ -16,7 +17,7 @@ import com.example.elegentrecyclerviewdemo.callback.DiffItemCallback
  * @data 2021/9/16
  * @description
  **/
-class ZRvAdapter : RecyclerView.Adapter<ZRvAdapter.DataBindingViewHolder>(){
+class ZRvAdapter : RecyclerView.Adapter<ZRvAdapter.DataBindingViewHolder>(),MovableAdapter{
 
     private val mAsyncListChange by lazy { AsyncListDiffer(this, DiffItemCallback<BaseBinder>()) }
 
@@ -36,7 +37,6 @@ class ZRvAdapter : RecyclerView.Adapter<ZRvAdapter.DataBindingViewHolder>(){
     }
 
     fun notifyAdapterChanged(binders: List<BaseBinder>){
-        Log.d("TAG","(DataBindingAdapter.kt:42)->${binders.size}")
         mAsyncListChange.submitList(binders)
     }
 
@@ -45,5 +45,22 @@ class ZRvAdapter : RecyclerView.Adapter<ZRvAdapter.DataBindingViewHolder>(){
     }
 
     override fun getItemCount(): Int = mAsyncListChange.currentList.size
+
+    override fun onItemDragVertical(fromPos: Int, toPos: Int) {
+        val newList = mutableListOf<BaseBinder>()
+        newList.addAll(mAsyncListChange.currentList)
+        val temp = newList[fromPos]
+        newList[fromPos] = newList[toPos]
+        newList[toPos] = temp
+        mAsyncListChange.submitList(newList)
+    }
+
+    override fun onItemRemove(pos: Int) {
+        Log.d("(ZRvAdapter.kt:->56)","$pos")
+        val newList = mutableListOf<BaseBinder>()
+        newList.addAll(mAsyncListChange.currentList)
+        newList.removeAt(pos)
+        mAsyncListChange.submitList(newList)
+    }
 
 }
