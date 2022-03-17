@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elegentrecyclerviewdemo.R
 import com.example.elegentrecyclerviewdemo.adapter.ZRvAdapter
+import com.example.elegentrecyclerviewdemo.decoration.LineDecoration
 
 /**
  * @class
@@ -23,6 +24,7 @@ class CategoryContainerBinder(private val data: List<CategoryItemBinder>) : Base
         }
         rv.adapter = adapter
         rv.layoutManager = LinearLayoutManager(itemView.context)
+        rv.addItemDecoration(LineDecoration())
     }
 
     override fun areItemsTheSame(binder: BaseBinder): Boolean {

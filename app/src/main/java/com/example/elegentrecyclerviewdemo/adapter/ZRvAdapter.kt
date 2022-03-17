@@ -1,6 +1,5 @@
 package com.example.elegentrecyclerviewdemo.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.example.elegentrecyclerviewdemo.binder.BaseBinder
 import com.example.elegentrecyclerviewdemo.callback.DiffItemCallback
-import java.util.*
+import com.example.elegentrecyclerviewdemo.helper.Movable
 
 
 /**
@@ -17,7 +16,7 @@ import java.util.*
  * @data 2021/9/16
  * @description
  **/
-class ZRvAdapter : RecyclerView.Adapter<ZRvAdapter.DataBindingViewHolder>(),MovableAdapter{
+class ZRvAdapter : RecyclerView.Adapter<ZRvAdapter.DataBindingViewHolder>(), Movable {
 
     private val mAsyncListChange by lazy { AsyncListDiffer(this, DiffItemCallback<BaseBinder>()) }
 
@@ -56,7 +55,6 @@ class ZRvAdapter : RecyclerView.Adapter<ZRvAdapter.DataBindingViewHolder>(),Mova
     }
 
     override fun onItemRemove(pos: Int) {
-        Log.d("(ZRvAdapter.kt:->56)","$pos")
         val newList = mutableListOf<BaseBinder>()
         newList.addAll(mAsyncListChange.currentList)
         newList.removeAt(pos)
